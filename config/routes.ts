@@ -25,6 +25,12 @@
 		icon: 'HomeOutlined',
 	},
 	{
+		path: '/khoa-hoc',
+		name: 'KhoaHoc',
+		component: './KhoaHoc',
+		icon: 'BookOutlined',
+	},
+	{
 		path: '/gioi-thieu',
 		name: 'About',
 		component: './TienIch/GioiThieu',
