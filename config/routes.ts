@@ -65,8 +65,8 @@
 			},
 			{
 				path: '/clb/report',
-				name: 'Report',
-				component: './ClubReports',
+				name: 'Báo cáo thống kê',
+				component: './ClubReport',
 			},
 		],
 	},
