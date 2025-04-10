@@ -43,6 +43,33 @@
 		icon: 'ArrowsAltOutlined',
 	},
 
+	{
+		path: '/clb',
+		name: 'Câu lạc bộ',
+		icon: 'BookOutlined',
+		routes: [
+			{
+				path: '/clb/clubmanagement',
+				name: 'ClubManagement',
+				component: './ClubManagement',
+			},
+			{
+				path: '/clb/clubmember',
+				name: 'ClubMembers',
+				component: './ClubMembers',
+			},
+			{
+				path: '/clb/memberapplications',
+				name: 'Member',
+				component: './MemberApplications',
+			},
+			{
+				path: '/clb/report',
+				name: 'Report',
+				component: './ClubReports',
+			},
+		],
+	},
 	// DANH MUC HE THONG
 	// {
 	// 	name: 'DanhMuc',
