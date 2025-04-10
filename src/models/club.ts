@@ -47,10 +47,13 @@ export default () => {
 	};
 
 	const handleEdit = (club: ClubData) => {
-		setEditingClub(club);
-		setPreviewImage(club.avatar || '');
-		setAvatarImage(club.avatar || '');
-		setIsModalOpen(true);
+		// Batch state updates using setTimeout to avoid React queue issues
+		setTimeout(() => {
+			setEditingClub(club);
+			setPreviewImage(club.avatar || '');
+			setAvatarImage(club.avatar || '');
+			setIsModalOpen(true);
+		}, 0);
 	};
 
 	const handleSave = async (values: any) => {

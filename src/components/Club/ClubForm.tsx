@@ -9,16 +9,19 @@ interface ClubFormProps {
 	initialValues?: Partial<ClubData>;
 	onFinish: (values: any) => void;
 	isViewMode?: boolean;
+	form?: any;
 }
 
-const ClubForm: React.FC<ClubFormProps> = ({ initialValues, onFinish, isViewMode = false }) => {
+const ClubForm: React.FC<ClubFormProps> = ({ initialValues, onFinish, isViewMode = false, form: externalForm }) => {
 	const [form] = Form.useForm();
+	const formInstance = externalForm || form;
+
 	const [imageLoading, setImageLoading] = useState(false);
 	const [previewImage, setPreviewImage] = useState<string>(initialValues?.avatar || '');
 	const [avatarImage, setAvatarImage] = useState<string>(initialValues?.avatar || '');
 
 	if (initialValues) {
-		form.setFieldsValue(initialValues);
+		formInstance.setFieldsValue(initialValues);
 	}
 
 	const handleSubmit = (values: any) => {
@@ -40,7 +43,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ initialValues, onFinish, isViewMode
 	};
 
 	return (
-		<Form form={form} layout='vertical' onFinish={handleSubmit}>
+		<Form form={formInstance} layout='vertical' onFinish={handleSubmit}>
 			<Form.Item name='avatar' label='Ảnh đại diện' rules={[{ required: true, message: 'Vui lòng chọn ảnh đại diện' }]}>
 				<div>
 					{previewImage && (
@@ -80,7 +83,7 @@ const ClubForm: React.FC<ClubFormProps> = ({ initialValues, onFinish, isViewMode
 									.then((base64) => {
 										setPreviewImage(base64);
 										setAvatarImage(base64);
-										form.setFieldsValue({ avatar: base64 });
+										formInstance.setFieldsValue({ avatar: base64 });
 										message.success('Tải ảnh lên thành công!');
 										setImageLoading(false);
 									})

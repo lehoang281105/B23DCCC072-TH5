@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { Modal, Table } from 'antd';
+import { Modal, Table, Button, Form } from 'antd';
 import useClubModel from '@/models/club';
 import useMemberModel from '@/models/member';
 import ClubForm from '@/components/Club/ClubForm';
@@ -21,6 +21,7 @@ const Clubmanagement: React.FC = () => {
 	} = useClubModel();
 
 	const { selectedClubMembers, getMembersByClub } = useMemberModel();
+	const [form] = Form.useForm();
 
 	const handleViewMembers = useCallback(
 		(clubId: string) => {
@@ -34,6 +35,10 @@ const Clubmanagement: React.FC = () => {
 		setEditingClub(null);
 		setIsModalOpen(true);
 	}, [setEditingClub, setIsModalOpen]);
+
+	const handleFormSubmit = () => {
+		form.submit();
+	};
 
 	return (
 		<div>
@@ -49,11 +54,17 @@ const Clubmanagement: React.FC = () => {
 				title={editingClub ? 'Chỉnh sửa CLB' : 'Thêm CLB'}
 				visible={isModalOpen}
 				onCancel={() => resetState()}
-				onOk={() => document.getElementById('club-form')?.dispatchEvent(new Event('submit', { bubbles: true }))}
+				destroyOnClose
+				footer={[
+					<Button key='cancel' onClick={() => resetState()}>
+						Hủy
+					</Button>,
+					<Button key='submit' type='primary' onClick={handleFormSubmit}>
+						Lưu
+					</Button>,
+				]}
 			>
-				<div id='club-form'>
-					<ClubForm initialValues={editingClub || undefined} onFinish={handleSave} />
-				</div>
+				<ClubForm initialValues={editingClub || undefined} onFinish={handleSave} form={form} />
 			</Modal>
 
 			<Modal
